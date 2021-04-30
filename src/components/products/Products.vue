@@ -47,14 +47,15 @@ export default {
     },
 
     methods: {
-      addProduct(product){
+      addProduct(product) {
         if (!product) {
           return;
         }
         axios.post("api/v1/product", product)
-      .then((response) => product = response.data
-      )
-      
+      .then((response) => {
+        product = response.data;
+        console.log(response);
+        })
       },
 
       deleteProduct(id) {
@@ -65,9 +66,9 @@ export default {
           .then((res) => {
             this.products = res.data;
           })
+      
         })
         .catch((error) => {console.log(error)})
-
       }
     }
 };
