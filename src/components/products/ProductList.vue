@@ -8,27 +8,54 @@
                             <th>Brand</th>
                             <th>Origin</th>
                             <th>Price</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
+                
                     <tbody v-for="product in products" :key="product.id">
+                     
+                    
                         <tr>
                             <td>{{product.id}}</td>
-                            <td>{{product.name}}</td>
+                            <td >{{product.name}}</td>
                             <td>{{product.brand}}</td>
                             <td>{{product.origin}}</td>
                             <td>{{product.price}}</td>
-                        </tr>      
+                        <td>
+                           <button @click="$emit('delete-product', product.id)">Delete</button>
+                      <!-- <button>Update</button> -->
+                          </td>         
+             
+
+                            
+                        </tr>  
+                          
+                            
                     </tbody>                      
             </table> 
   </div>
 </template>
 
 <script>
+ 
 export default {
+
+  
   name: "ProductList",
 
   props: ["products"],
+
+  data() {
+    return {
+      hover: false
+    }  
+  },
+
+
 };
+
+
+
 </script>
 
 <style>

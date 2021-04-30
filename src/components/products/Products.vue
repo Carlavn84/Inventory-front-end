@@ -7,7 +7,8 @@
       </button>
       </div>
      
-  <ProductList class="list" v-bind:products="products"/>
+  <ProductList class="list" v-bind:products="products"
+  v-on:delete-product="deleteProduct"/>
 
   <br> <br>
 
@@ -22,6 +23,7 @@ import axios from 'axios';
 
 import ProductList from './ProductList.vue';
 import AddProduct from './AddProduct.vue';
+
 
 export default {
     name: 'Products',
@@ -45,7 +47,26 @@ export default {
     },
 
     methods: {
-      addProduct(){
+      addProduct(product){
+        if (!product) {
+          return;
+        }
+        axios.post("api/v1/product", product)
+      .then((response) => product = response.data
+      )
+      
+      },
+
+      deleteProduct(id) {
+        axios
+        .delete("api/v1/product/" + id)
+        .then(() => {
+          axios.get("api/v1/product")
+          .then((res) => {
+            this.products = res.data;
+          })
+        })
+        .catch((error) => {console.log(error)})
 
       }
     }

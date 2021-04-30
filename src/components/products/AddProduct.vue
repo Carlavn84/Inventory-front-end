@@ -1,63 +1,58 @@
 <template>
   <div>
-    <form @submit.prevent="addProduct"> 
-        <div>
-            <lable>Name 
-                <input type="text" v-model="name">
-            </lable>            
-        </div>
-        <br>
-         <div>
-            <lable>Brand
-                <input type="text" v-model="brand">
-            </lable>            
-        </div>
-        
-         <div>
-            <lable>Origin
-                <input type="text" v-model="origin">
-            </lable>            
-        </div>
+    <label>Name:</label> 
+    <input type="text" v-model="product.name"><br><br>
+          
+    <label>Brand:</label>
+    <input type="text" v-model="product.brand"><br><br>
+            
+    <label>Origin:</label>
+    <input type="text" v-model="product.origin"><br><br>        
+  
+    <label>Price:</label>
+    <input type="text" v-model="product.price"><br><br>
+              
+    <button v-on:click="addProduct()"
+            :disabled="isDisable" 
+           
+            class="button">Submit</button> 
+    
 
-         <div>
-            <lable>Price
-                <input type="text" v-model="price">
-            </lable>            
-        </div>
-      
-      
-      <input type="submit" value="Submit" class="btn">
-    </form>
   </div>
 </template>
 
 <script>
 
+
 export default {
   name: "AddProduct",
   data() {
     return {
-      name: '',
-      brand: '',
-      origin: '',
-      price: null
+      product: {
+          name: '',
+          brand: '',
+          origin: '',
+          price: null
+      } 
     }
   },
   methods: {
     addProduct() {
-      const newProduct = {
-        name: this.name,
-        brand: this.brand,
-        origin: this.origin,
-        price: this.price
-       
-      }
-      // Send up to parent
-      this.$emit('add-todo', newProduct);
-      this.name = '';
-      this.brand = '';
-      this.origin = '';
-      this.price = '';
+
+    this.$emit('add-product', this.product);
+
+    // clear these input fields after submitting
+    this.product = { };
+     
+    }
+  },
+
+  computed: {
+    isDisable(){
+      return !this.product.name || 
+            !this.product.brand || 
+            !this.product.origin ||
+            !this.product.price;  
     }
   }
 }
