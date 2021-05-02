@@ -46,7 +46,19 @@ export default {
         )
     },
 
+    created() {
+      this.fetchProducts();
+    },
+
     methods: {
+      fetchProducts () {
+        axios
+        .get("api/v1/product")
+        .then((response) => {this.products = response.data;
+        } 
+        )
+      },
+
       addProduct(product) {
         if (!product) {
           return;
@@ -54,7 +66,7 @@ export default {
         axios.post("api/v1/product", product)
       .then((response) => {
         product = response.data;
-        console.log(response);
+        this.fetchProducts();
         })
       },
 
