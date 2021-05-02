@@ -21,13 +21,12 @@
                             <td>{{product.brand}}</td>
                             <td>{{product.origin}}</td>
                             <td>{{product.price}}</td>
-                        <td>
-                           <button @click="$emit('delete-product', product.id)">Delete</button>
-                      <!-- <button>Update</button> -->
-                          </td>         
-             
+                            <td>
+                              <button @click="$emit('delete-product', product.id)">Delete</button>
 
-                            
+                              <button>Update</button>
+                            </td>      
+                                       
                         </tr>  
                           
                             
@@ -43,13 +42,14 @@ export default {
   
   name: "ProductList",
 
-  props: ["products"],
+  props: ["products", "showModal"],
 
   data() {
     return {
       hover: false
     }  
   },
+
 
 
 };
